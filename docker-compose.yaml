@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  redis:
+    ports:
+      - "6379:6379"
+    image: redis:4.0.2
+    environment:
+        REDIS_PASS_FILE: "secret"
+    command: [
+      "bash", "-c",
+      '
+       docker-entrypoint.sh
+       --requirepass "$$REDIS_PASS_FILE"
+      '
+    ]
+    expose:
+      - 6379
